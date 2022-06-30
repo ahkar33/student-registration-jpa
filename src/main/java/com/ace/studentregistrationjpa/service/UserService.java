@@ -48,11 +48,11 @@ public class UserService {
     }
 
     public void updateUser(User user) {
-        userRepository.updateUser(user.getEmail(), user.getName(), user.getPassword(), user.getRole(), user.getId());
+        userRepository.updateUser(user.getEmail(), user.getName(), user.getPassword(), user.getUserRole(), user.getId());
     }
 
     public List<User> selectUserListByIdOrName(String id, String name) {
-        return userRepository.findByIdOrNameContaining(id, name);
+        return userRepository.findByIdContainingOrNameContaining(id, name);
     }
 
 }

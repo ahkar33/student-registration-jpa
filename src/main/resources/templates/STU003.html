@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments :: html_head">
+    <title>Student Management</title>
+</head>
+
+<body>
+    <div th:insert="fragments :: navbar" />
+    <div th:insert="fragments :: sidenav" />
+    <div class="container">
+        <div class="main_contents">
+            <div id="sub_content">
+                <form class="row g-3 mt-3 ms-2" action="/student/searchStudent">
+                    <div class="col-auto">
+                        <label for="staticEmail2" class="visually-hidden">studentID</label>
+                        <input type="text" class="form-control" id="staticEmail2" placeholder="Student ID" name="id">
+                    </div>
+                    <div class="col-auto">
+                        <label for="inputPassword2" class="visually-hidden">studentName</label>
+                        <input type="text" class="form-control" id="inputPassword2" placeholder="Student Name"
+                            name="name">
+                    </div>
+                    <div class="col-auto">
+                        <label for="inputPassword2" class="visually-hidden">Course</label>
+                        <input type="text" class="form-control" id="inputPassword2" placeholder="Course" name="course">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-success mb-3">Search</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-secondary mb-3">Reset</button>
+                    </div>
+                </form>
+                <div>
+                    <table class="table table-striped" id="stduentTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Student ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="student,iter : ${studentList}">
+                                <td th:text="${iter.index + 1}"></td>
+                                <td th:text="${student.id}"></td>
+                                <td th:text="${student.name}"></td>
+                                <td>
+                                    <span th:each="course, loop : ${coursesLists[iter.index]}">
+                                        [[${course.name}]] <span th:if="${loop.index != loop.size-1}">,</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/student/seeMore/' + ${student.id}}"><button type="submit"
+                                            class="btn btn-secondary mb-2">See
+                                            More</button></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:insert="fragments :: footer" />
+</body>
+
+</html>

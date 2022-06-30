@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/test.css">
+  <title> Student Registration LGN001 </title>
+</head>
+
+<body class="login-page-body">
+  <div class="login-page">
+    <div class="form">
+      <div class="login">
+        <div class="login-header">
+          <h1>Welcome!</h1>
+          <p th:text="${error}"></p>
+        </div>
+      </div>
+      <form class="login-form" th:action="@{/login}" th:object="${data}" method="POST">
+        <input type="email" th:field="*{email}" placeholder="Email" value="" required />
+        <input type="password" th:field="*{password}" placeholder="Password" value="" required />
+        <button>login</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments :: html_head">
+    <title>Course Registration</title>
+</head>
+
+<body>
+    <div th:insert="fragments :: navbar" />
+    <div th:insert="fragments :: sidenav" />
+    <div class="main_contents">
+        <div id="sub_content">
+            <form th:action="@{/course/addCourse}" th:object="${data}" method="POST">
+                <h2 class="col-md-6 offset-md-2 mb-5 mt-4">Course Registration</h2>
+                <h3 style="color: red; text-align: center;" th:text="${error}"></h3>
+                <h3 style="color: green; text-align: center;" th:text="${message}"></h3>
+                <div class="row mb-4">
+                    <div class="col-md-2"></div>
+                    <label for="name" class="col-md-2 col-form-label">Name</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="name" th:field="*{name}" autofocus>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4"></div>
+
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-secondary col-md-2">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div th:insert="fragments :: footer" />
+</body>
+
+</html>

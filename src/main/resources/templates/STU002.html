@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments :: html_head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stduent Update</title>
+</head>
+
+<body>
+    <div th:insert="fragments :: navbar" />
+    <div th:insert="fragments :: sidenav" />
+    [[${data.id}]]
+    <p th:text="${#strings.isEmpty(data.phone)}"></p>
+    <div class="container">
+        <div class="main_contents">
+            <div id="sub_content">
+                <form th:action="@{/student/updateStudent}" th:object="${data}" method="post">
+                    <h2 class="col-md-6 offset-md-2 mb-5 mt-4">Student
+                        Registration</h2>
+                    <h3 style="color: red; text-align: center;">[[${error}]]</h3>
+                    <h3 style="color: green; text-align: center;">[[${message}]]</h3>
+                    <input type="hidden" class="form-control" id="name" th:field="*{id}" />
+                    <div class="row mb-4">
+                        <div class="col-md-2"></div>
+                        <label for="name" class="col-md-2 col-form-label">Name</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="name" th:field="*{name}">
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-2"></div>
+                        <label for="dob" class="col-md-2 col-form-label">DOB</label>
+                        <div class="col-md-4">
+                            <input type="date" class="form-control" id="dob" th:field="*{dob}">
+                        </div>
+                    </div>
+                    <fieldset class="row mb-4">
+                        <div class="col-md-2"></div>
+                        <legend class="col-form-label col-md-2 pt-0">Gender</legend>
+                        <div class="col-md-4">
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
+                                    value="Male" th:field="*{gender}">
+                                <label class="form-check-label" for="gridRadios1">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+                                    value="Female" th:field="*{gender}">
+                                <label class="form-check-label" for="gridRadios2">
+                                    Female
+                                </label>
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                    <div class="row mb-4">
+                        <div class="col-md-2"></div>
+                        <label for="phone" class="col-md-2 col-form-label">Phone</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="phone" value="+95 " th:field="*{phone}">
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-2"></div>
+                        <label for="education" class="col-md-2 col-form-label">Education</label>
+                        <div class="col-md-4">
+                            <select th:field="*{education}" class="form-select" aria-label="Education" id="education">
+                                <option th:value="'Bachelor of Information Technology'">Bachelor of Information
+                                    Technology</option>
+                                <option th:value="'Diploma in IT'">Diploma in IT</option>
+                                <option th:value="'Bachelor of Computer Science'">Bachelor of Computer Science</option>
+                            </select>
+                        </div>
+                    </div>
+                    <fieldset class="row mb-4">
+                        <div class="col-md-2"></div>
+                        <legend class="col-form-label col-md-2 pt-0">Attend</legend>
+                        <div class="col-md-4">
+                            <input type="checkbox" class="ms-4 form-check-input" th:each="course : ${courseList}"
+                                th:value="${course.id}" th:text="${course.name}" th:field="*{attendCourses}" />
+                        </div>
+                    </fieldset>
+
+                    <div class="row mb-4">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-secondary col-md-2">
+                                Update
+                            </button>
+                            <a class="btn btn-danger col-mb-3" th:href="@{'/student/deleteStudent/' + ${data.id}}">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                    <form>
+            </div>
+        </div>
+    </div>
+    <div th:insert="fragments :: footer" />
+</body>
+
+</html>
