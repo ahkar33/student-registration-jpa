@@ -49,7 +49,7 @@
                                 <td th:text="${student.id}"></td>
                                 <td th:text="${student.name}"></td>
                                 <td>
-                                    <span th:each="course, loop : ${coursesLists[iter.index]}">
+                                    <span th:each="course, loop : ${student.attendCourses}">
                                         [[${course.name}]] <span th:if="${loop.index != loop.size-1}">,</span>
                                     </span>
                                 </td>
