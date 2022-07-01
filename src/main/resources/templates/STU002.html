@@ -82,7 +82,7 @@
                         <legend class="col-form-label col-md-2 pt-0">Attend</legend>
                         <div class="col-md-4">
                             <input type="checkbox" class="ms-4 form-check-input" th:each="course : ${courseList}"
-                                th:value="${course.id}" th:text="${course.name}" th:field="*{attendCourses}" />
+                                th:value="${course.id}" th:text="${course.name}" th:field="*{attendCoursesString}" />
                         </div>
                     </fieldset>
 
