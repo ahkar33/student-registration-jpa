@@ -45,12 +45,12 @@ public class StudentService {
 	// return filterList;
 	// }
 
-	public String test(){
-		return courseRepository.test("COU001");
+	public List<Course> selectCoursesByStudentId(String id) {
+		return courseRepository.findCoursesByStudentId(id);
 	}
 
-	public List<?> selectStudentListByIdOrNameOrCourse(String id, String name, String course) {
-		return studentRepository.findByIdOrNameOrCourse(id, name, course);
+	public List<Student> selectStudentListByIdOrNameOrCourse(String id, String name, String course) {
+		return studentRepository.findByIdOrNameOrCourse("%" + id + "%", "%" + name + "%",  "%" + course + "%" );
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.ace.studentregistrationjpa.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,9 +16,9 @@ public interface CourseRepository extends JpaRepository<Course, String>{
     //     nativeQuery = true
     // )
     @Query(
-        value = "select c.id,c.name from student_course sc inner join course c on sc.course_id = c.id join student s on cs.student_id = s.id where s.id = ?1",
+        value = "select c.id,c.name from student_course sc inner join course c on sc.course_id = c.id inner join student s on sc.student_id = s.id where s.id = ?1",
         nativeQuery = true
     )
-    String test(String id);
+    List<Course> findCoursesByStudentId(String student_id);
 
 }
