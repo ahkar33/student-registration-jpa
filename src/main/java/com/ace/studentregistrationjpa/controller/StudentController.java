@@ -104,9 +104,6 @@ public class StudentController {
     public String seeMore(@PathVariable("id") String id, ModelMap model) {
         Student student = studentService.selectStudentById(id);
         List<Course> courseList = courseService.selectAllCourses();
-        // for(Course course : courses) {
-        // student.addAttendCoursesString(course);
-        // }
         for (int i = 0; i < courseList.size(); i++) {
             for (int j = 0; j < student.getAttendCourses().size(); j++) {
                 if (courseList.get(i).getId().equals(student.getAttendCourses().get(j).getId())) {

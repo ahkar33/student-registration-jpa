@@ -12,8 +12,14 @@ import com.ace.studentregistrationjpa.entity.Student;
 
 public interface StudentRepository extends JpaRepository<Student, String> {
 
-    @Query(value = "select distinct s.id, s.name, s.dob, s.gender, s.phone, s.education from student_course sc inner join student s on sc.student_id = s.id inner join course c on sc.course_id = c.id where s.id like %?1% or s.name like %?2% or c.name like %?3%", nativeQuery = true)
-    List<Student> findByIdOrNameOrCourse(String id, String name, String course);
+    // @Query(value = "select distinct s.id, s.name, s.dob, s.gender, s.phone,
+    // s.education from student_course sc inner join student s on sc.student_id =
+    // s.id inner join course c on sc.course_id = c.id where s.id like %?1% or
+    // s.name like %?2% or c.name like %?3%", nativeQuery = true)
+    // List<Student> findByIdOrNameOrCourse(String id, String name, String course);
+
+    List<Student> findDistinctByIdContainingOrNameContainingOrAttendCourses_NameContaining(
+            String id, String name, String course);
 
     @Modifying
     @Transactional

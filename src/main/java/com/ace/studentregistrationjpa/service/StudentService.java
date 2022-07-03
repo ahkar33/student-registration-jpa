@@ -23,7 +23,8 @@ public class StudentService {
 
 	public List<Student> selectStudentListByIdOrNameOrCourse(String id, String name, String course) {
 		// return studentRepository.findByIdOrNameOrCourse("%" + id + "%", "%" + name + "%", "%" + course + "%");
-		return studentRepository.findByIdOrNameOrCourse(id, name, course);
+		// return studentRepository.findByIdOrNameOrCourse(id, name, course);
+		return studentRepository.findDistinctByIdContainingOrNameContainingOrAttendCourses_NameContaining(id, name, course);
 	}
 
 	public void insertStudent(Student student) {
