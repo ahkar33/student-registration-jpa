@@ -12,8 +12,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.ace.studentregistrationjpa.entity.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
-    
-    // User findByEmailAndPassword(String email, String password);
 
     Boolean existsByEmailAndPassword(String email, String password);
 

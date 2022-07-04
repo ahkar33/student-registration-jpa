@@ -12,12 +12,6 @@ import com.ace.studentregistrationjpa.entity.Student;
 
 public interface StudentRepository extends JpaRepository<Student, String> {
 
-    // @Query(value = "select distinct s.id, s.name, s.dob, s.gender, s.phone,
-    // s.education from student_course sc inner join student s on sc.student_id =
-    // s.id inner join course c on sc.course_id = c.id where s.id like %?1% or
-    // s.name like %?2% or c.name like %?3%", nativeQuery = true)
-    // List<Student> findByIdOrNameOrCourse(String id, String name, String course);
-
     List<Student> findDistinctByIdContainingOrNameContainingOrAttendCourses_NameContaining(
             String id, String name, String course);
 
@@ -29,12 +23,5 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     @Modifying
     @Query(value = "delete from student_course sc where sc.student_id = ?1", nativeQuery = true)
     void deleteCoursesByStudentId(String id);
-
-    // @Modifying
-    // @Transactional
-    // @Query("update Student s set s.name=?1, s.dob= ?2, s.gender=?3, s.phone=?4,
-    // s.education=?5 where s.id=?5")
-    // void updateStudent(String name, String dob, String gender, String phone,
-    // String education, String id);
 
 }

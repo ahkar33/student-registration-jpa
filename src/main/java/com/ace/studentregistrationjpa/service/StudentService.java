@@ -22,12 +22,12 @@ public class StudentService {
 	}
 
 	public List<Student> selectStudentListByIdOrNameOrCourse(String searchId, String searchName, String searchCourse) {
-		// return studentRepository.findByIdOrNameOrCourse("%" + id + "%", "%" + name + "%", "%" + course + "%");
-        // "~" <- this is just random bullshit to avoid sql wildcard, not REGEX
-        String id = searchId.isBlank() ? "~" : searchId;
-        String name = searchName.isBlank() ? "~" : searchName;
-        String course = searchCourse.isBlank() ? "~" : searchCourse;
-		return studentRepository.findDistinctByIdContainingOrNameContainingOrAttendCourses_NameContaining(id, name, course);
+		// "~" <- this is just random bullshit to avoid sql wildcard, not REGEX
+		String id = searchId.isBlank() ? "~" : searchId;
+		String name = searchName.isBlank() ? "~" : searchName;
+		String course = searchCourse.isBlank() ? "~" : searchCourse;
+		return studentRepository.findDistinctByIdContainingOrNameContainingOrAttendCourses_NameContaining(id, name,
+				course);
 	}
 
 	public void insertStudent(Student student) {
@@ -41,16 +41,5 @@ public class StudentService {
 	public void deleteStudentById(String id) {
 		studentRepository.deleteStudentById(id);
 	}
-
-	// public void updateStudent(Student student) {
-	// studentRepository.updateStudent(
-	// student.getName(), student.getDob(), student.getGender(),
-	// student.getPhone(), student.getEducation(), student.getId());
-	// studentRepository.deleteCoursesByStudentId(student.getId());
-	// }
-
-	// public List<Course> selectCoursesByStudentId(String id) {
-	// return courseRepository.findCoursesByStudentId(id);
-	// }
 
 }

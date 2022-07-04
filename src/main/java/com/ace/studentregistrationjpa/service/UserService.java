@@ -13,43 +13,40 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Boolean checkLogin(String email, String password){
-        // if(userRepository.ByEmailAndPassword(email, password) == null){
-        //     return false;
-        // }
-        // return true;
+    public Boolean checkLogin(String email, String password) {
         return userRepository.existsByEmailAndPassword(email, password);
     }
 
-    public User selectUserByEmail(String email){
+    public User selectUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public User selectUserById(String id){
+    public User selectUserById(String id) {
         return userRepository.findById(id).get();
     }
 
-    public List<User> selectAllUsers(){
+    public List<User> selectAllUsers() {
         return userRepository.findAll();
     }
 
-    public Boolean checkEmailExists(String email){
-        if(userRepository.findByEmail(email) == null) {
+    public Boolean checkEmailExists(String email) {
+        if (userRepository.findByEmail(email) == null) {
             return false;
         }
         return true;
     }
 
-    public void insertUser(User user){
+    public void insertUser(User user) {
         userRepository.save(user);
     }
 
-    public void deleteUserById(String id){
+    public void deleteUserById(String id) {
         userRepository.deleteById(id);
     }
 
     public void updateUser(User user) {
-        userRepository.updateUser(user.getEmail(), user.getName(), user.getPassword(), user.getUserRole(), user.getId());
+        userRepository.updateUser(user.getEmail(), user.getName(), user.getPassword(), user.getUserRole(),
+                user.getId());
     }
 
     public List<User> selectUserListByIdOrName(String id, String name) {
