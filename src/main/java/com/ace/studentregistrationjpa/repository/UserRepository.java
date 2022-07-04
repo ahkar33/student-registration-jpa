@@ -13,7 +13,9 @@ import com.ace.studentregistrationjpa.entity.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
     
-    User findByEmailAndPassword(String email, String password);
+    // User findByEmailAndPassword(String email, String password);
+
+    Boolean existsByEmailAndPassword(String email, String password);
 
     User findByEmail(String email);
 

@@ -21,9 +21,12 @@ public class StudentService {
 		return studentRepository.findAll();
 	}
 
-	public List<Student> selectStudentListByIdOrNameOrCourse(String id, String name, String course) {
+	public List<Student> selectStudentListByIdOrNameOrCourse(String searchId, String searchName, String searchCourse) {
 		// return studentRepository.findByIdOrNameOrCourse("%" + id + "%", "%" + name + "%", "%" + course + "%");
-		// return studentRepository.findByIdOrNameOrCourse(id, name, course);
+        // "~" <- this is just random bullshit to avoid sql wildcard, not REGEX
+        String id = searchId.isBlank() ? "~" : searchId;
+        String name = searchName.isBlank() ? "~" : searchName;
+        String course = searchCourse.isBlank() ? "~" : searchCourse;
 		return studentRepository.findDistinctByIdContainingOrNameContainingOrAttendCourses_NameContaining(id, name, course);
 	}
 

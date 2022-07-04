@@ -14,10 +14,11 @@ public class UserService {
     private UserRepository userRepository;
 
     public Boolean checkLogin(String email, String password){
-        if(userRepository.findByEmailAndPassword(email, password) == null){
-            return false;
-        }
-        return true;
+        // if(userRepository.ByEmailAndPassword(email, password) == null){
+        //     return false;
+        // }
+        // return true;
+        return userRepository.existsByEmailAndPassword(email, password);
     }
 
     public User selectUserByEmail(String email){

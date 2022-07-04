@@ -83,12 +83,8 @@ public class StudentController {
     }
 
     @GetMapping("/searchStudent")
-    public String searchStudent(@RequestParam("id") String searchId, @RequestParam("name") String searchName,
-            @RequestParam("course") String searchCourse, ModelMap model) {
-        // ")#<>(}" <- this is just random bullshit to avoid sql wildcard, not REGEX
-        String id = searchId.isBlank() ? ")#<>(}" : searchId;
-        String name = searchName.isBlank() ? ")#<>(}" : searchName;
-        String course = searchCourse.isBlank() ? ")#<>(}" : searchCourse;
+    public String searchStudent(@RequestParam("id") String id, @RequestParam("name") String name,
+            @RequestParam("course") String course, ModelMap model) {
         List<Student> studentList = (List<Student>) studentService.selectStudentListByIdOrNameOrCourse(id, name,
                 course);
         if (studentList.size() == 0) {
