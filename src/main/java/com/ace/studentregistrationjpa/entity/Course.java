@@ -14,12 +14,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Course {
-    @Id
-    private String id;
-    private String name;
+  @Id
+  private String id;
+  private String name;
 
-    public Course(String name) {
-		super();
-		this.name = name;
-	}
+  public Course(String name) {
+    super();
+    this.name = name;
+  }
 }

@@ -14,10 +14,7 @@ public class CourseService {
     private CourseRepository courseRepository;
 
     public Boolean checkCourseName(String name) {
-        if (courseRepository.findByName(name) == null) {
-            return false;
-        }
-        return true;
+        return courseRepository.existsByName(name);
     }
 
     public List<Course> selectAllCourses() {
