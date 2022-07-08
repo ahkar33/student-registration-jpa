@@ -1,4 +1,4 @@
-package com.ace.studentregistrationjpa;
+package com.ace.studentregistrationjpa.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ace.studentregistrationjpa.entity.User;
 import com.ace.studentregistrationjpa.repository.UserRepository;
-import com.ace.studentregistrationjpa.service.UserService;
 
 @SpringBootTest
 public class TestUserService {

@@ -31,15 +31,15 @@ public class AuthenticationController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         String currentDate = formatter.format(date);
-        if (userService.checkLogin(userBean.getEmail(), userBean.getPassword())) {
-            User resUser = userService.selectUserByEmail(userBean.getEmail());
-            session.setAttribute("date", currentDate);
-            session.setAttribute("userInfo", resUser);
-            return "redirect:/welcome";
+        if (!userService.checkLogin(userBean.getEmail(), userBean.getPassword())) {
+            model.addAttribute("data", userBean);
+            model.addAttribute("error", "Email and Password do not match !!");
+            return "LGN001";
         }
-        model.addAttribute("data", userBean);
-        model.addAttribute("error", "Email and Password do not match !!");
-        return "LGN001";
+        User resUser = userService.selectUserByEmail(userBean.getEmail());
+        session.setAttribute("date", currentDate);
+        session.setAttribute("userInfo", resUser);
+        return "redirect:/welcome";
     }
 
     @GetMapping("/logout")

@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-        @GetMapping("/userManagement")
+    @GetMapping("/userManagement")
     public String showUserManagement(ModelMap model) {
         List<User> userList = userService.selectAllUsers();
         model.addAttribute("userList", userList);
