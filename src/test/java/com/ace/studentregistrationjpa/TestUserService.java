@@ -1,6 +1,7 @@
 package com.ace.studentregistrationjpa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -32,6 +33,7 @@ public class TestUserService {
     public void checkLoginTest(){
         when(repo.existsByEmailAndPassword("joey@gmail.com", "asdf")).thenReturn(true);
         assertTrue(service.checkLogin("joey@gmail.com", "asdf"));
+        assertFalse(service.checkLogin("joey@gmail.com", "qwer"));
         verify(repo, times(1)).existsByEmailAndPassword("joey@gmail.com", "asdf");
     }
 
@@ -114,6 +116,7 @@ public class TestUserService {
                 .build();
         when(repo.findByEmail("joey@gmail.com")).thenReturn(setUser);   
         assertTrue(service.checkEmailExists("joey@gmail.com"));
+        assertFalse(service.checkEmailExists("penny@gmail.com"));
         verify(repo, times(1)).findByEmail("joey@gmail.com");
     }
 
