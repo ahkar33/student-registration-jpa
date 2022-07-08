@@ -7,14 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.mockito.Mockito.when;
-import com.ace.studentregistrationjpa.entity.User;
 import com.ace.studentregistrationjpa.repository.UserRepository;
 import com.ace.studentregistrationjpa.service.UserService;
 
@@ -40,7 +35,7 @@ public class TestAuthenticationController {
     }
 
     @Test
-    public void TestLoginValidate() throws Exception {
+    public void TestLoginFailed() throws Exception {
         this.mockMvc.perform(post("/login"))
                 .andExpect(status().is(200))
                 .andExpect(view().name("LGN001"))
