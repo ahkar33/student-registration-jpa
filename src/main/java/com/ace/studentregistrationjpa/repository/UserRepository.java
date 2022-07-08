@@ -1,7 +1,6 @@
 package com.ace.studentregistrationjpa.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -17,7 +16,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     User findByEmail(String email);
 
-    Optional<User> findById(String id);
+    @Query(value = "select * from user where id=?1", nativeQuery = true)
+    User findByUserId(String id);
 
     @Modifying
     @Transactional

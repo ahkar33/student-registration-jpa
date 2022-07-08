@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public User selectUserById(String id) {
-        return userRepository.findById(id).get();
+        return userRepository.findByUserId(id);
     }
 
     public List<User> selectAllUsers() {
@@ -52,5 +52,5 @@ public class UserService {
     public List<User> selectUserListByIdOrName(String id, String name) {
         return userRepository.findByIdContainingOrNameContaining(id, name);
     }
-
+    
 }
