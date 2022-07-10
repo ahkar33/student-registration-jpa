@@ -6,11 +6,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.*;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import com.ace.studentregistrationjpa.entity.User;
 import com.ace.studentregistrationjpa.repository.UserRepository;
@@ -29,7 +27,6 @@ public class AuthenticationControllerTest {
     @MockBean
     UserRepository repo;
 
-    private ResultActions andExpect;
 
     @Test
     public void TestShowLogin() throws Exception {
@@ -72,7 +69,7 @@ public class AuthenticationControllerTest {
         given(userService.checkLogin(userBean.getEmail(), userBean.getPassword())).willReturn(true);
         // given(userService.selectUserByEmail("admin@gmail.com")).willReturn(userBean);
         // assertTrue(userService.checkLogin("admin@gmail.com", "admin"));
-        andExpect = this.mockMvc.perform(post("/login").flashAttr("data", userBean))
+        this.mockMvc.perform(post("/login").flashAttr("data", userBean))
                 .andExpect(status().is(302))
                 .andExpect(redirectedUrl("/welcome"));
     }

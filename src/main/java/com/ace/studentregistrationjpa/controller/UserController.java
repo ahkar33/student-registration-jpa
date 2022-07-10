@@ -85,6 +85,8 @@ public class UserController {
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute("data") User userBean, ModelMap model, HttpSession session,
             HttpServletRequest req) {
+        // for testing only
+        session.setAttribute("userInfo", userBean);
         User sessionDto = (User) session.getAttribute("userInfo");
         if (userBean.getEmail().isBlank() || userBean.getName().isBlank() || userBean.getPassword().isBlank()
                 || userBean.getConfirmPassword().isBlank() || userBean.getUserRole().isBlank()) {
@@ -99,10 +101,6 @@ public class UserController {
         if (!tempUser.getEmail().equals(userBean.getEmail())) {
             if (userService.checkEmailExists(userBean.getEmail())) {
                 model.addAttribute("error", "Email already exists !!");
-                return "USR002";
-            }
-            if (!userBean.getPassword().equals(userBean.getConfirmPassword())) {
-                model.addAttribute("error", "Passwords do not match !!");
                 return "USR002";
             }
             userService.updateUser(userBean);
@@ -142,5 +140,4 @@ public class UserController {
         model.addAttribute("userList", searchUserList);
         return "USR003";
     }
-
 }

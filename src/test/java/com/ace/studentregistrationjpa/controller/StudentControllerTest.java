@@ -102,7 +102,59 @@ class StudentControllerTest {
                 .andExpect(view().name("STU002"))
                 .andExpect(model().attributeExists("courseList"))
                 .andExpect(model().attributeExists("data"));
+    }
 
+    @Test
+    void searchStudentTest() throws Exception {
+        List<Course> courseList = new ArrayList<>();
+        courseList.add(new Course("1", "Java"));
+        Student student = Student.builder()
+                .id("1")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("IT Diploma")
+                .attendCourses(courseList)
+                .phone("343434223")
+                .build();
+       List<Student> studentList = new ArrayList<>();
+       studentList.add(student);
+       given(studentService.selectAllStudents()).willReturn(studentList);
+       given(studentService.selectStudentListByIdOrNameOrCourse("1", "Joey", "java"))
+               .willReturn(studentList);
+       this.mockMvc.perform(get("/student/searchStudent")
+               .param("id", "1")
+               .param("name", "Joey")
+               .param("course", "java"))
+               .andExpect(view().name("STU003"))
+               .andExpect(model().attributeExists("studentList"));
+    }
+
+    @Test
+    void searchStudentWhenSearchListIsZeroTest() throws Exception {
+        List<Course> courseList = new ArrayList<>();
+        courseList.add(new Course("1", "Java"));
+        Student student = Student.builder()
+                .id("1")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("IT Diploma")
+                .attendCourses(courseList)
+                .phone("343434223")
+                .build();
+        List<Student> studentList = new ArrayList<>();
+        studentList.add(student);
+        List<Student> searchList = new ArrayList<>();
+        given(studentService.selectAllStudents()).willReturn(studentList);
+        given(studentService.selectStudentListByIdOrNameOrCourse("1", "Joey", "java"))
+                .willReturn(searchList);
+        this.mockMvc.perform(get("/student/searchStudent")
+                        .param("id", "1")
+                        .param("name", "Joey")
+                        .param("course", "java"))
+                .andExpect(view().name("STU003"))
+                .andExpect(model().attributeExists("studentList"));
     }
 
 }

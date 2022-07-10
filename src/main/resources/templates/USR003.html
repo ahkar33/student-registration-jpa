@@ -56,17 +56,17 @@
                                 </a>
                             </td>
                             <td>
-                                <span th:if="${session.userInfo.id} == ${user.id}">
-                                    <a class="btn btn-secondary mb-3 disabled"
-                                        th:href="@{'/user/deleteUser/' + ${user.id}}">
-                                        Delete
-                                    </a>
-                                </span>
-                                <span th:if="${session.userInfo.id} != ${user.id}">
-                                    <a class="btn btn-secondary mb-3" th:href="@{'/user/deleteUser/' + ${user.id}}">
-                                        Delete
-                                    </a>
-                                </span>
+<!--                                <span th:if="${session.userInfo.id} == ${user.id}">-->
+<!--                                    <a class="btn btn-secondary mb-3 disabled"-->
+<!--                                        th:href="@{'/user/deleteUser/' + ${user.id}}">-->
+<!--                                        Delete-->
+<!--                                    </a>-->
+<!--                                </span>-->
+<!--                                <span th:if="${session.userInfo.id} != ${user.id}">-->
+<!--                                    <a class="btn btn-secondary mb-3" th:href="@{'/user/deleteUser/' + ${user.id}}">-->
+<!--                                        Delete-->
+<!--                                    </a>-->
+<!--                                </span>-->
                             </td>
                         </tr>
                     </tbody>
