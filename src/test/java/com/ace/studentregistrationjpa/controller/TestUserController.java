@@ -1,5 +1,6 @@
 package com.ace.studentregistrationjpa.controller;
 
+import com.ace.studentregistrationjpa.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,10 +26,24 @@ public class TestUserController {
     UserRepository repo;
 
     @Test
-    public void testShowUserManagement() throws Exception{
+    public void setUpUserManagementTest() throws Exception{
         this.mockMvc.perform(get("/user/userManagement"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("USR003"))
 		.andExpect(model().attributeExists("userList"));
+    }
+    @Test
+    public void setUpAddUserTest() throws Exception{
+        this.mockMvc.perform(get("/user/addUser"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("USR001"))
+                .andExpect(model().attributeExists("data"));
+    }
+
+    @Test
+    public void deleteUserTest() throws Exception{
+        this.mockMvc.perform(get("/user/deleteUser/{id}", "USR001"))
+                .andExpect(status().is(302))
+                .andExpect(redirectedUrl("/user/userManagement"));
     }
 }
