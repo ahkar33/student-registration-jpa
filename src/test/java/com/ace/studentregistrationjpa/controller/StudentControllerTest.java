@@ -186,7 +186,7 @@ class StudentControllerTest {
     @Test
     public void blankAddStudentTest() throws Exception{
         List<String> courseListString = new ArrayList<>();
-        courseListString.add("java");
+        courseListString.add("1");
         List<Course> fetchCourseList = new ArrayList<>();
         fetchCourseList.add(new Course("1", "Java"));
         Student student = Student.builder()
@@ -208,7 +208,7 @@ class StudentControllerTest {
     @Test
     public void ifStudentListIsNullAddStudentTest() throws Exception{
         List<String> courseListString = new ArrayList<>();
-        courseListString.add("java");
+        courseListString.add("1");
         List<Course> fetchCourseList = new ArrayList<>();
         fetchCourseList.add(new Course("1", "Java"));
         Student student = Student.builder()
@@ -232,7 +232,7 @@ class StudentControllerTest {
     @Test
     public void ifStudentListIsNotNullAddStudentTest() throws Exception{
         List<String> courseListString = new ArrayList<>();
-        courseListString.add("java");
+        courseListString.add("1");
         List<Course> fetchCourseList = new ArrayList<>();
         fetchCourseList.add(new Course("1", "java"));
         fetchCourseList.add(new Course("2", "python"));
@@ -282,7 +282,7 @@ class StudentControllerTest {
     @Test
     public void blankUpdateStudentTest() throws Exception{
         List<String> courseListString = new ArrayList<>();
-        courseListString.add("java");
+        courseListString.add("1");
         List<Course> fetchCourseList = new ArrayList<>();
         fetchCourseList.add(new Course("1", "java"));
         Student student = Student.builder()
@@ -305,7 +305,7 @@ class StudentControllerTest {
     @Test
     public void updateStudentTest() throws Exception{
         List<String> courseListString = new ArrayList<>();
-        courseListString.add("java");
+        courseListString.add("1");
         List<Course> fetchCourseList = new ArrayList<>();
         fetchCourseList.add(new Course("1", "java"));
         Student student = Student.builder()

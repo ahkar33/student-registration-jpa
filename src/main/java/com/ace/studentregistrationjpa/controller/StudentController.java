@@ -76,7 +76,7 @@ public class StudentController {
             }
         }
         studentService.insertStudent(studentBean);
-        model.addAttribute("message", "Registered Succesfully !!");
+        model.addAttribute("message", "Registered Successfully !!");
         // clear the bean
         model.addAttribute("data", new Student());
         return "STU001";
