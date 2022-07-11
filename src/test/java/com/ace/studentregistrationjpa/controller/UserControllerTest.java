@@ -3,6 +3,7 @@ package com.ace.studentregistrationjpa.controller;
 import com.ace.studentregistrationjpa.entity.User;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.mockito.BDDMockito.*;
@@ -15,7 +16,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.ace.studentregistrationjpa.repository.UserRepository;
 import com.ace.studentregistrationjpa.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
@@ -228,10 +231,12 @@ public class UserControllerTest {
                                 .userRole("Admin").build();
                 List<User> userList = new ArrayList<>();
                 userList.add(userBean);
+                HashMap<String, Object> sessionAttribute = new HashMap<String, Object>();
+                sessionAttribute.put("userInfo", userBean);
                 given(userService.selectAllUsers()).willReturn(userList);
                 given(userService.selectUserById(userBean.getId())).willReturn(tempUser);
                 given(userService.checkEmailExists(userBean.getEmail())).willReturn(false);
-                this.mockMvc.perform(post("/user/updateUser").flashAttr("data", userBean))
+                this.mockMvc.perform(post("/user/updateUser").flashAttr("data", userBean).sessionAttrs(sessionAttribute))
                                 .andExpect(status().is(302))
                                 .andExpect(redirectedUrl("/user/userManagement"));
         }
@@ -247,9 +252,11 @@ public class UserControllerTest {
                                 .userRole("Admin").build();
                 List<User> userList = new ArrayList<>();
                 userList.add(userBean);
+                HashMap<String, Object> sessionAttribute = new HashMap<String, Object>();
+                sessionAttribute.put("userInfo", userBean);
                 given(userService.selectAllUsers()).willReturn(userList);
                 given(userService.selectUserById(userBean.getId())).willReturn(userBean);
-                this.mockMvc.perform(post("/user/updateUser").flashAttr("data", userBean))
+                this.mockMvc.perform(post("/user/updateUser").flashAttr("data", userBean).sessionAttrs(sessionAttribute))
                                 .andExpect(status().is(302))
                                 .andExpect(redirectedUrl("/user/userManagement"));
         }

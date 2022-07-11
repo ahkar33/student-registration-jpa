@@ -13,10 +13,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.*;
+
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 // import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.ArrayList;
@@ -155,6 +158,169 @@ class StudentControllerTest {
                         .param("course", "java"))
                 .andExpect(view().name("STU003"))
                 .andExpect(model().attributeExists("studentList"));
+    }
+
+    @Test
+    public void addStudentWithoutCourseTest() throws Exception{
+//        List<Course> courseList = new ArrayList<>();
+        List<String> courseListString = new ArrayList<>();
+        List<Course> fetchCourseList = new ArrayList<>();
+        fetchCourseList.add(new Course("1", "Java"));
+        Student student = Student.builder()
+                .id("1")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("IT Diploma")
+                .attendCoursesString(courseListString)
+                .phone("343434223")
+                .build();
+        given(courseService.selectAllCourses()).willReturn(fetchCourseList);
+        this.mockMvc.perform(post("/student/addStudent").flashAttr("data", student))
+                .andExpect(view().name("STU001"))
+                .andExpect(model().attributeExists("courseList"))
+                .andExpect(model().attributeExists("error"))
+                .andExpect(model().attributeExists("data"));
+    }
+
+    @Test
+    public void blankAddStudentTest() throws Exception{
+        List<String> courseListString = new ArrayList<>();
+        courseListString.add("java");
+        List<Course> fetchCourseList = new ArrayList<>();
+        fetchCourseList.add(new Course("1", "Java"));
+        Student student = Student.builder()
+                .id("1")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("")
+                .attendCoursesString(courseListString)
+                .phone("343434223")
+                .build();
+        given(courseService.selectAllCourses()).willReturn(fetchCourseList);
+        this.mockMvc.perform(post("/student/addStudent").flashAttr("data", student))
+                .andExpect(view().name("STU001"))
+                .andExpect(model().attributeExists("courseList"))
+                .andExpect(model().attributeExists("error"))
+                .andExpect(model().attributeExists("data"));
+    }
+    @Test
+    public void ifStudentListIsNullAddStudentTest() throws Exception{
+        List<String> courseListString = new ArrayList<>();
+        courseListString.add("java");
+        List<Course> fetchCourseList = new ArrayList<>();
+        fetchCourseList.add(new Course("1", "Java"));
+        Student student = Student.builder()
+                .id("STU001")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("IT Diploma")
+                .attendCoursesString(courseListString)
+                .phone("343434223")
+                .build();
+        given(courseService.selectAllCourses()).willReturn(fetchCourseList);
+        given(studentService.selectAllStudents()).willReturn(null);
+        this.mockMvc.perform(post("/student/addStudent").flashAttr("data", student))
+                .andExpect(view().name("STU001"))
+                .andExpect(model().attributeExists("courseList"))
+                .andExpect(model().attributeExists("message"))
+                .andExpect(model().attributeExists("data"));
+    }
+
+    @Test
+    public void ifStudentListIsNotNullAddStudentTest() throws Exception{
+        List<String> courseListString = new ArrayList<>();
+        courseListString.add("java");
+        List<Course> fetchCourseList = new ArrayList<>();
+        fetchCourseList.add(new Course("1", "java"));
+        fetchCourseList.add(new Course("2", "python"));
+        Student student = Student.builder()
+                .id("STU001")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("IT Diploma")
+                .attendCoursesString(courseListString)
+                .phone("343434223")
+                .build();
+        List<Student> studentList = new ArrayList<>();
+        studentList.add(student);
+        given(courseService.selectAllCourses()).willReturn(fetchCourseList);
+        given(studentService.selectAllStudents()).willReturn(studentList);
+        this.mockMvc.perform(post("/student/addStudent").flashAttr("data", student))
+                .andExpect(view().name("STU001"))
+                .andExpect(model().attributeExists("courseList"))
+                .andExpect(model().attributeExists("message"))
+                .andExpect(model().attributeExists("data"));
+    }
+
+    @Test
+    public void updateStudentWithoutCourseTest() throws Exception{
+//        List<Course> courseList = new ArrayList<>();
+        List<String> courseListString = new ArrayList<>();
+        List<Course> fetchCourseList = new ArrayList<>();
+        fetchCourseList.add(new Course("1", "Java"));
+        Student student = Student.builder()
+                .id("1")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("IT Diploma")
+                .attendCoursesString(courseListString)
+                .phone("343434223")
+                .build();
+        given(courseService.selectAllCourses()).willReturn(fetchCourseList);
+        this.mockMvc.perform(post("/student/updateStudent").flashAttr("data", student))
+                .andExpect(view().name("STU002"))
+                .andExpect(model().attributeExists("courseList"))
+                .andExpect(model().attributeExists("error"))
+                .andExpect(model().attributeExists("data"));
+    }
+
+    @Test
+    public void blankUpdateStudentTest() throws Exception{
+        List<String> courseListString = new ArrayList<>();
+        courseListString.add("java");
+        List<Course> fetchCourseList = new ArrayList<>();
+        fetchCourseList.add(new Course("1", "java"));
+        Student student = Student.builder()
+                .id("1")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("")
+                .attendCoursesString(courseListString)
+                .phone("343434223")
+                .build();
+        given(courseService.selectAllCourses()).willReturn(fetchCourseList);
+        this.mockMvc.perform(post("/student/updateStudent").flashAttr("data", student))
+                .andExpect(view().name("STU002"))
+                .andExpect(model().attributeExists("courseList"))
+                .andExpect(model().attributeExists("error"))
+                .andExpect(model().attributeExists("data"));
+    }
+
+    @Test
+    public void updateStudentTest() throws Exception{
+        List<String> courseListString = new ArrayList<>();
+        courseListString.add("java");
+        List<Course> fetchCourseList = new ArrayList<>();
+        fetchCourseList.add(new Course("1", "java"));
+        Student student = Student.builder()
+                .id("1")
+                .name("Joey")
+                .dob("2000-8-1")
+                .gender("Male")
+                .education("IT Diploma")
+                .attendCoursesString(courseListString)
+                .phone("343434223")
+                .build();
+        given(courseService.selectAllCourses()).willReturn(fetchCourseList);
+        this.mockMvc.perform(post("/student/updateStudent").flashAttr("data", student))
+                .andExpect(status().is(302))
+                .andExpect(redirectedUrl("/student/studentManagement"));
     }
 
 }

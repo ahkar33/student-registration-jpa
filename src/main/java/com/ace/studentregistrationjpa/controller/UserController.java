@@ -85,8 +85,6 @@ public class UserController {
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute("data") User userBean, ModelMap model, HttpSession session,
             HttpServletRequest req) {
-        // for testing only
-        session.setAttribute("userInfo", userBean);
         User sessionDto = (User) session.getAttribute("userInfo");
         if (userBean.getEmail().isBlank() || userBean.getName().isBlank() || userBean.getPassword().isBlank()
                 || userBean.getConfirmPassword().isBlank() || userBean.getUserRole().isBlank()) {
@@ -125,7 +123,6 @@ public class UserController {
         userService.deleteUserById(id);
         return "redirect:/user/userManagement";
     }
-
     @GetMapping("/searchUser")
     public String searchUser(@RequestParam("id") String searchId, @RequestParam("name") String searchName,
             ModelMap model) {
