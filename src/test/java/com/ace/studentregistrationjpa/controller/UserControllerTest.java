@@ -3,7 +3,6 @@ package com.ace.studentregistrationjpa.controller;
 import com.ace.studentregistrationjpa.entity.User;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.mockito.BDDMockito.*;
@@ -16,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.ace.studentregistrationjpa.repository.UserRepository;
 import com.ace.studentregistrationjpa.service.UserService;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

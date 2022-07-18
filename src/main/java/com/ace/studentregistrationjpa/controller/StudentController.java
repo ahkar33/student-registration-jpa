@@ -153,8 +153,9 @@ public class StudentController {
     }
 
     @GetMapping("/report/{format}")
-    public void generateReport(@PathVariable("format") String format) throws FileNotFoundException, JRException {
+    public String generateReport(@PathVariable("format") String format) throws FileNotFoundException, JRException {
         reportService.exportReport(format);
+        return "redirect:/student/studentManagement";
     }
 
 }

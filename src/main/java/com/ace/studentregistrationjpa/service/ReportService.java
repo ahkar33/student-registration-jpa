@@ -27,7 +27,7 @@ public class ReportService {
     private StudentService studentService;
 
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
-        String path = "C:\\Users\\Ahkar Toe Maw\\Desktop\\Report";
+        String path = "C:\\Users\\Ahkar Toe Maw\\Documents\\Jasper Report\\Student Report";
         List<Student> students = studentService.selectAllStudents();
         // load file and compile it
         File file = ResourceUtils.getFile("classpath:student.jrxml");

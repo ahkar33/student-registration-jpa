@@ -31,6 +31,43 @@
                     <div class="col-auto">
                         <button type="submit" class="btn btn-secondary mb-3">Reset</button>
                     </div>
+
+                    <div class="col-auto">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Download Report
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Choose File Format</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <!-- <div class="modal-body d-flex justify-content-evenly">
+                                        <a th:href="@{/student/report/html}" class="btn btn-success">HTML</a>
+                                        <a th:href="@{/student/report/pdf}" class="btn btn-success">PDF</a>
+                                    </div> -->
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <a th:href="@{/student/report/html}" class="btn btn-success mt-2"
+                                            type="button">HTML</a>
+                                        <a th:href="@{/student/report/pdf}" class="btn btn-success mb-2"
+                                            type="button">PDF</a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </form>
                 <div>
                     <table class="table table-striped" id="stduentTable">
@@ -55,8 +92,8 @@
                                 </td>
                                 <td>
                                     <a th:href="@{'/student/seeMore/' + ${student.id}}"><button type="submit"
-                                            class="btn btn-secondary mb-2">See
-                                            More</button></a>
+                                            class="btn btn-secondary mb-2">
+                                            See More</button></a>
                                 </td>
                             </tr>
                         </tbody>

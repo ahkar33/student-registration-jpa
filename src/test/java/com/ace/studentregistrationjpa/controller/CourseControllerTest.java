@@ -2,7 +2,6 @@ package com.ace.studentregistrationjpa.controller;
 import com.ace.studentregistrationjpa.entity.Course;
 import com.ace.studentregistrationjpa.repository.CourseRepository;
 import com.ace.studentregistrationjpa.service.CourseService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
