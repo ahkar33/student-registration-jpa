@@ -1,5 +1,6 @@
 package com.ace.studentregistrationjpa.controller;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ace.studentregistrationjpa.entity.Course;
 import com.ace.studentregistrationjpa.entity.Student;
 import com.ace.studentregistrationjpa.service.CourseService;
+import com.ace.studentregistrationjpa.service.ReportService;
 import com.ace.studentregistrationjpa.service.StudentService;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 @RequestMapping("/student")
@@ -26,6 +30,9 @@ public class StudentController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private ReportService reportService;
 
     @GetMapping("/studentManagement")
     public String studentManagement(ModelMap model) {
@@ -144,4 +151,10 @@ public class StudentController {
         studentService.deleteStudentById(id);
         return "redirect:/student/studentManagement";
     }
+
+    @GetMapping("/report/{format}")
+    public void generateReport(@PathVariable("format") String format) throws FileNotFoundException, JRException {
+        reportService.exportReport(format);
+    }
+
 }
