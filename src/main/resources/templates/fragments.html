@@ -27,6 +27,9 @@
                     </a>
                 </div>
                 <div class="col-md-6">
+                    <p>User : [[${session.userInfo.id}]] [[${session.userInfo.name}]] </p>
+                    <p>Current Date : [[${session.date}]] </p>
+                    <h4 id="fadeOut" class="text-success">[[${msg}]]</h4>
                 </div>
                 <div class="col-md-1">
                     <input type="button" class="btn-basic" id="lgnout-button" value="Log Out"
@@ -57,7 +60,6 @@
             /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
             var dropdown = document.getElementsByClassName("dropdown-btn");
             var i;
-
             for (i = 0; i < dropdown.length; i++) {
                 dropdown[i].addEventListener("click", function () {
                     this.classList.toggle("active");

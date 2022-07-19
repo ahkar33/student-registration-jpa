@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.ace.studentregistrationjpa.entity.User;
+import com.ace.studentregistrationjpa.service.StudentService;
 import com.ace.studentregistrationjpa.service.UserService;
 
 @Controller
 public class AuthenticationController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    StudentService studentService;
 
     @GetMapping("/login")
     public ModelAndView setUpLogin() {

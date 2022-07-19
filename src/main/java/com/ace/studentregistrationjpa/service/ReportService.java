@@ -26,7 +26,7 @@ public class ReportService {
     @Autowired
     private StudentService studentService;
 
-    public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
+    public void exportReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\Ahkar Toe Maw\\Documents\\Jasper Report\\Student Report";
         List<Student> students = studentService.selectAllStudents();
         // load file and compile it
@@ -43,7 +43,7 @@ public class ReportService {
         if(reportFormat.equalsIgnoreCase("pdf")) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\student.pdf");
         }
-        return "report generated in path : " + path;
+        // return "report generated in path : " + path;
     }
 
 }

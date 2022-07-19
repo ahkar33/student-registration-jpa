@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ace.studentregistrationjpa.entity.Course;
 import com.ace.studentregistrationjpa.entity.Student;
@@ -153,8 +154,9 @@ public class StudentController {
     }
 
     @GetMapping("/report/{format}")
-    public String generateReport(@PathVariable("format") String format) throws FileNotFoundException, JRException {
+    public String generateReport(@PathVariable("format") String format,  RedirectAttributes redirectAttrs) throws FileNotFoundException, JRException {
         reportService.exportReport(format);
+        redirectAttrs.addFlashAttribute("msg", "Successfully Downloaded!");
         return "redirect:/student/studentManagement";
     }
 

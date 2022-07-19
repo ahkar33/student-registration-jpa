@@ -31,7 +31,6 @@
                     <div class="col-auto">
                         <button type="submit" class="btn btn-secondary mb-3">Reset</button>
                     </div>
-
                     <div class="col-auto">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
@@ -103,6 +102,27 @@
         </div>
     </div>
     <div th:insert="fragments :: footer" />
+
+    <script>
+
+        var fadeTarget = document.getElementById("fadeOut");
+        const fadeOutEffect = () => {
+            const fadeEffect =  setInterval( () => {
+                if (!fadeTarget.style.opacity) {
+                    fadeTarget.style.opacity = 1;
+                }
+                if (fadeTarget.style.opacity > 0) {
+                    fadeTarget.style.opacity -= 0.1;
+                } else {
+                    clearInterval(fadeEffect);
+                }
+            }, 300);
+        }
+        window.onload =  () => {
+            fadeOutEffect();
+        };
+
+    </script>
 </body>
 
 </html>
