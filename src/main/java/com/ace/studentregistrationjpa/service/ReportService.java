@@ -1,10 +1,12 @@
 package com.ace.studentregistrationjpa.service;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,7 @@ public class ReportService {
     @Autowired
     private StudentService studentService;
 
-    public void exportReport(String reportFormat) throws FileNotFoundException, JRException {
+    public void exportReport(String reportFormat, HttpServletResponse response) throws JRException, IOException {
         String path = "C:\\Users\\Ahkar Toe Maw\\Documents\\Jasper Report\\Student Report";
         List<Student> students = studentService.selectAllStudents();
         // load file and compile it
@@ -42,20 +44,26 @@ public class ReportService {
         parameters.put("createdBy", "Java Techie");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSourse);
         // if(reportFormat.equalsIgnoreCase("html")) {
-        //     JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\student.html");
+        // JasperExportManager.exportReportToHtmlFile(jasperPrint, path +
+        // "\\student.html");
         // }
-        if(reportFormat.equalsIgnoreCase("pdf")) {
+        if (reportFormat.equalsIgnoreCase("pdf")) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\student.pdf");
         }
-        if(reportFormat.equalsIgnoreCase("excel")){
-          JRXlsxExporter exporter = new JRXlsxExporter(); // initialize exporter 
-          exporter.setExporterInput(new SimpleExporterInput(jasperPrint)); // set compiled report as input
-          exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(path+ "\\students.xlsx"));  // set output file via path with filename
-          SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
-          configuration.setOnePagePerSheet(true); // setup configuration
-          configuration.setDetectCellType(true);
-          exporter.setConfiguration(configuration); // set configuration
-          exporter.exportReport();
+        if (reportFormat.equalsIgnoreCase("excel")) {
+            JRXlsxExporter exporter = new JRXlsxExporter(); // initialize exporter
+            exporter.setExporterInput(new SimpleExporterInput(jasperPrint)); // set compiled report as input
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(path + "\\students.xlsx")); // set output
+                                                                                                        // file via path
+                                                                                                        // with filename
+            SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
+            configuration.setOnePagePerSheet(true); // setup configuration
+            configuration.setDetectCellType(true);
+            exporter.setConfiguration(configuration); // set configuration
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
+            response.setContentType("application/xlsx");
+            response.addHeader("Content-Disposition", "inline; filename=student.xlsx;");
+            exporter.exportReport();
         }
     }
 

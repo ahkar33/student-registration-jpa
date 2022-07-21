@@ -1,8 +1,10 @@
 package com.ace.studentregistrationjpa.controller;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -154,10 +156,14 @@ public class StudentController {
     }
 
     @GetMapping("/report/{format}")
-    public String generateReport(@PathVariable("format") String format,  RedirectAttributes redirectAttrs) throws FileNotFoundException, JRException {
-        reportService.exportReport(format);
+    public void generateReport(
+            @PathVariable("format") String format,
+            RedirectAttributes redirectAttrs,
+            HttpServletResponse response
+        ) throws JRException, IOException {
+        reportService.exportReport(format, response);
         redirectAttrs.addFlashAttribute("msg", "Successfully Downloaded!");
-        return "redirect:/student/studentManagement";
+        // return "redirect:/student/studentManagement";
     }
 
 }
